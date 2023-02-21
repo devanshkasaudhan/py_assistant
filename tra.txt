@@ -1,0 +1,87 @@
+
+
+
+import os
+
+def print_files_in_dir(path):
+    print("Files in directory:")
+    for file in os.listdir(path):
+        print(file)
+
+def create_file(path, file_name):
+    open(os.path.join(path, file_name), "w").close()
+    print(f"File '{file_name}' created in '{path}'")
+
+def read_file(path, file_name):
+    try:
+        with open(os.path.join(path, file_name), "r") as file:
+            print(f"Content of file '{file_name}':")
+            print(file.read())
+    except FileNotFoundError:
+        print(f"Error: File '{file_name}' not found in '{path}'")
+
+def update_file(path, file_name, content):
+    try:
+        with open(os.path.join(path, file_name), "a") as file:
+            file.write(content)
+        print(f"File '{file_name}' updated in '{path}'")
+    except FileNotFoundError:
+        print(f"Error: File '{file_name}' not found in '{path}'")
+
+if __name__ == "__main__":
+    path = input("Enter the path to the directory: ")
+    print_files_in_dir(path)
+    file_name = input("Enter the name of the file: ")
+    operation = input("Enter the operation to perform ('create', 'read', 'update'): ")
+    
+    if operation == "create":
+        create_file(path, file_name)
+    elif operation == "read":
+        read_file(path, file_name)
+    elif operation == "update":
+        content = input("Enter the content to be added to the file: ")
+        update_file(path, file_name, content)
+    else:
+        print("Error: Invalid operation")
+
+
+
+
+
+
+
+import pickle
+
+tasks = []
+
+def add_task(task):
+    tasks.append(task)
+    save_tasks()
+    return f"Task: {task} has been added to your to-do list"
+
+def view_tasks():
+    if len(tasks) == 0:
+        return "Your to-do list is empty"
+    return "\n".join(f"- {task}" for task in tasks)
+
+def complete_task(task_index):
+    try:
+        completed_task = tasks.pop(task_index)
+        save_tasks()
+        return f"Task: {completed_task} has been completed"
+    except IndexError:
+        return "Invalid task index"
+
+def save_tasks():
+    with open("tasks.pickle", "wb") as file:
+        pickle.dump(tasks, file)
+
+def load_tasks():
+    global tasks
+    try:
+        with open("tasks.pickle", "rb") as file:
+            tasks = pickle.load(file)
+    except FileNotFoundError:
+        tasks = []
+
+load_tasks()

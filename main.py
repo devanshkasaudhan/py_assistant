@@ -98,6 +98,14 @@ if __name__ == "__main__":
             code_path ="C:\\Users\\HP\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe"
             os.startfile(code_path)
 
+        elif 'open edge' in query:
+            code_path ="C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+            os.startfile(code_path)
+            
+        elif 'open edge' in query:
+            code_path ="C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+            os.startfile(code_path)
+
         elif 'quit' in query:
             print("thank you sir, see you again soon")
             speak("thank you sir, see you again soon")
